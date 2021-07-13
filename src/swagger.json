@@ -1,0 +1,354 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RentalX Documentation",
+        "description": "This is an API Rent",
+        "version": "1.0.0",
+        "contact": {
+            "email": "mateusmmo15@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "sumary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example":{
+                                    "name": "Mateus Brites",
+                                    "email": "mateusmmo15@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Operação realizada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                    "admin":
+                                    {
+                                        "type": "boolean"
+                                    },
+                                    "id":
+                                    {
+                                        "type": "string"
+                                    },
+                                    "name": 
+                                    {
+                                        "type": "string"
+                                    },
+                                    "email": 
+                                    {
+                                        "type": "string"
+                                    },
+                                    "created_at": 
+                                    {
+                                        "type": "string"
+                                    },
+                                    "updated_at": 
+                                    {
+                                        "type": "string"
+                                    }
+                                    },
+                                    "example": {
+                                    "admin": false,
+                                    "id": "9166cf1b-6d74-4bfa-a334-2be4b37f9ffb",
+                                    "name": "Mateus Brites",
+                                    "email": "mateusmmo15@gmail.com",
+                                    "created_at": "2021-07-13T18:43:00",
+                                    "updated_at": "2021-07-13T18:43:00"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email in use.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                    "error": {
+                                        "type": "string"
+                                    }
+                                    },
+                                    "example": {
+                                    "error": "This already exists."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "Return all users",
+                "description": "Only admins can acess",
+                "parameters": [
+                  {
+                    "name": "user_id",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Operation sucess.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "admin": {
+                                  "type": "boolean"
+                                },
+                                "id": 
+                                {
+                                  "type": "string"
+                                },
+                                "name": 
+                                {
+                                  "type": "string"
+                                },
+                                "email": 
+                                {
+                                  "type": "string"
+                                },
+                                "created_at": 
+                                {
+                                  "type": "string"
+                                },
+                                "updated_at": 
+                                {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "example": [
+                              {
+                                "admin": true,
+                                "id": "9166cf1b-6d74-4bfa-a334-2be4b37f9ffb",
+                                "name": "Mateus Henrique",
+                                "email": "mateusmmo15@gmail.com",
+                                "created_at": "2021-03-29T10:18:14.127Z",
+                                "updated_at": "2021-03-29T10:18:23.138Z"
+                              }
+                            ]
+                        }
+                      }
+                    }
+                  },
+                  "400": {
+                    "description": "User is not a admin or user not found.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "error": {
+                                "type": "string"
+                              }
+                            },
+                            "example": {
+                              "error": "be an administrator to list all users is required."
+                            }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/users/{user_id}": {
+              "get": {
+                "tags": ["User"],
+                "summary": "Return one user by id",
+                "parameters": [
+                  {
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "uder id",
+                    "required": true,
+                    "schema": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Sucess.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "admin": 
+                              {
+                                "type": "boolean"
+                              },
+                              "id": 
+                              {
+                                "type": "string"
+                              },
+                              "name": 
+                              {
+                                "type": "string"
+                              },
+                              "email": 
+                              {
+                                "type": "string"
+                              },
+                              "created_at": 
+                              {
+                                "type": "string"
+                              },
+                              "updated_at": 
+                              {
+                                "type": "string"
+                              }
+                            },
+                            "example": {
+                                "admin": true,
+                                "id": "9166cf1b-6d74-4bfa-a334-2be4b37f9ffb",
+                                "name": "Mateus Henrique",
+                                "email": "mateusmmo15@gmail.com",
+                                "created_at": "2021-03-29T10:18:14.127Z",
+                                "updated_at": "2021-03-29T10:18:23.138Z"
+                            }
+                        }
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "User not found",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "error": {
+                                "type": "string"
+                              }
+                            },
+                            "example": {
+                              "error": "User not found."
+                            }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/users/{user_id}/admin": {
+              "patch": {
+                "tags": ["User"],
+                "summary": "make the user an admin",
+                "parameters": [
+                  {
+                    "name": "user_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Sucess.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "admin": {
+                              "type": "boolean",
+                              "enum": [
+                                ""
+                              ]
+                            },
+                            "id": 
+                            {
+                              "type": "string"
+                            },
+                            "name": 
+                            {
+                              "type": "string"
+                            },
+                            "email": 
+                            {
+                              "type": "string"
+                            },
+                            "created_at": 
+                            {
+                              "type": "string"
+                            },
+                            "updated_at": 
+                            {
+                              "type": "string"
+                            }
+                          },
+                          "example": {
+                            "admin": true,
+                            "id": "9166cf1b-6d74-4bfa-a334-2be4b37f9ffb",
+                            "name": "Mateus Henrique",
+                            "email": "mateusmmo15@gmail.com",
+                            "created_at": "2021-03-29T10:18:14.127Z",
+                            "updated_at": "2021-03-29T10:18:23.138Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "USer not found.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "error": {
+                                "type": "string"
+                              }
+                            },
+                            "example": {
+                              "error": "User not found."
+                            }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
